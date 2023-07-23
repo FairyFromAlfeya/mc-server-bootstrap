@@ -41,6 +41,8 @@ else
   exit
 fi
 
+PATH=$JAVA_HOME/bin:$PATH
+
 mkdir -p ./temp
 
 printf "%b Downloading JDK SE...\n" "${COFFEE_EMOJI}"

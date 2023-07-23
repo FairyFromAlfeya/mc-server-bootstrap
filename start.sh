@@ -14,6 +14,8 @@ else
   exit
 fi
 
+PATH=$JAVA_HOME/bin:$PATH
+
 java -version
 echo
 
