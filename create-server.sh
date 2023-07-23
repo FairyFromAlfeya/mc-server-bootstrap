@@ -69,6 +69,7 @@ java -jar ./temp/forge-installer.jar --installServer ./server > installer.log
 # IMPORTANT: By changing the setting below to TRUE script's user are indicating his agreement to Mojang AB EULA.
 # https://aka.ms/MinecraftEULA
 printf "eula=true\n" > ./server/eula.txt
+[ -f ./server-icon.png ] && mv server-icon.png ./server/server-icon.png
 
 # -------------- Clearing temp files -------------
 
