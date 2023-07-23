@@ -10,22 +10,43 @@ MAXIMUM_RAM_USAGE="4G"
 ONLINE_MODE=false
 SERVER_DESCRIPTION="Bootstrapped Forge 1.19.4 server"
 RESOURCE_PACK="https://database.faithfulpack.net/packs/32x-Java/May%202023/Faithful%2032x%20-%201.19.4.zip"
+RESOURCE_PACK_CHECKSUM="2ee4dc41e7ed154d036710ec7c42acdec179215e"
 
 # -------------- Files download URLs -------------
 
 FORGE_INSTALLER_URL="https://maven.minecraftforge.net/net/minecraftforge/forge/1.19.4-45.1.0/forge-1.19.4-45.1.0-installer.jar"
 
-JAVA_SE_MAC_OS_URL="https://download.oracle.com/java/17/archive/jdk-17.0.8_macos-aarch64_bin.tar.gz"
-JAVA_SE_LINUX_URL="https://download.oracle.com/java/17/archive/jdk-17.0.8_linux-x64_bin.tar.gz"
+JAVA_SE_MAC_OS_URL="https://download.oracle.com/java/17/archive/jdk-17.0.6_macos-aarch64_bin.tar.gz"
+JAVA_SE_LINUX_URL="https://download.oracle.com/java/17/archive/jdk-17.0.6_linux-x64_bin.tar.gz"
 
 JAVA_PATH_MAC_OS=$PWD/java/Contents/Home
 JAVA_PATH_LINUX=$PWD/java
 
+# Default mods set
 MODS=(
-  # Default
-  "https://mediafilez.forgecdn.net/files/4442/439/theoneprobe-1.19.4-8.0.0.jar"
+  # https://www.curseforge.com/minecraft/mc-mods/jei
+  "https://mediafilez.forgecdn.net/files/4592/504/jei-1.19.4-forge-13.1.0.15.jar"
+
+  # https://www.curseforge.com/minecraft/mc-mods/journeymap
   "https://mediafilez.forgecdn.net/files/4532/920/journeymap-1.19.4-5.9.7-forge.jar"
+
+  # https://www.curseforge.com/minecraft/mc-mods/appleskin
+  "https://mediafilez.forgecdn.net/files/4440/123/appleskin-forge-mc1.19.4-2.4.3.jar"
+
+  # https://www.curseforge.com/minecraft/mc-mods/just-enough-resources-jer
+  "https://mediafilez.forgecdn.net/files/4543/906/JustEnoughResources-1.19.4-1.3.3.219.jar"
+
+  # https://www.curseforge.com/minecraft/mc-mods/the-one-probe
+  "https://mediafilez.forgecdn.net/files/4442/439/theoneprobe-1.19.4-8.0.0.jar"
+
+  # https://www.curseforge.com/minecraft/mc-mods/spark
+  "https://mediafilez.forgecdn.net/files/4505/309/spark-1.10.37-forge.jar"
+
+  # https://www.curseforge.com/minecraft/mc-mods/simple-backups
   "https://mediafilez.forgecdn.net/files/4640/130/SimpleBackups-1.19.4-2.2.4.jar"
+
+  # https://www.curseforge.com/minecraft/mc-mods/simple-login
+  "https://raw.githubusercontent.com/FairyFromAlfeya/mc-simple-login/mc-1.19/release/SimpleLogin-1.19.4-1.0.2-all.jar"
 )
 
 # ------------- Emojis octet streams -------------
@@ -97,6 +118,7 @@ then
   if [ -n "$RESOURCE_PACK" ]
   then
     printf -- "resource-pack=%s\n" "$RESOURCE_PACK" >> ./server/server.properties
+    printf -- "resource-pack-sha1=%s\n" "$RESOURCE_PACK_CHECKSUM" >> ./server/server.properties
   fi
 
   [ -f ./server-icon.png ] && mv server-icon.png ./server/server-icon.png
