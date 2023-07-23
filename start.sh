@@ -2,15 +2,19 @@
 
 JAVA_PATH_MAC_OS=$PWD/java/Contents/Home
 JAVA_PATH_LINUX=$PWD/java
+JAVA_PATH_WINDOWS=$PWD/java
 
-if [ "$(arch)" = "arm64" ]
+if [[ "$OSTYPE" = "darwin"* ]]
 then
   export JAVA_HOME=$JAVA_PATH_MAC_OS
-elif [ "$(arch)" = "x86_64" ]
+elif [[ "$OSTYPE" = "linux-gnu"* ]]
 then
   export JAVA_HOME=$JAVA_PATH_LINUX
+elif [[ "$OSTYPE" = "msys" ]]
+then
+  export JAVA_HOME=$JAVA_PATH_WINDOWS
 else
-  echo "System architecture $(arch) is not supported. Aborting..."
+  echo "System type $OSTYPE is not supported. Aborting..."
   exit
 fi
 

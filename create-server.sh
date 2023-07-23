@@ -18,9 +18,11 @@ FORGE_INSTALLER_URL="https://maven.minecraftforge.net/net/minecraftforge/forge/1
 
 JAVA_SE_MAC_OS_URL="https://download.oracle.com/java/17/archive/jdk-17.0.6_macos-aarch64_bin.tar.gz"
 JAVA_SE_LINUX_URL="https://download.oracle.com/java/17/archive/jdk-17.0.6_linux-x64_bin.tar.gz"
+JAVA_SE_WINDOWS_URL="https://download.oracle.com/java/17/archive/jdk-17.0.6_windows-x64_bin.zip"
 
 JAVA_PATH_MAC_OS=$PWD/java/Contents/Home
 JAVA_PATH_LINUX=$PWD/java
+JAVA_PATH_WINDOWS=$PWD/java
 
 # Default mods set
 MODS=(
@@ -63,16 +65,20 @@ DONE_EMOJI="\342\234\205"
 
 mkdir -p ./temp
 
-if [ "$(arch)" = "arm64" ]
+if [[ "$OSTYPE" = "darwin"* ]]
 then
   JAVA_SE_URL=$JAVA_SE_MAC_OS_URL
   export JAVA_HOME=$JAVA_PATH_MAC_OS
-elif [ "$(arch)" = "x86_64" ]
+elif [[ "$OSTYPE" = "linux-gnu"* ]]
 then
   JAVA_SE_URL=$JAVA_SE_LINUX_URL
   export JAVA_HOME=$JAVA_PATH_LINUX
+elif [[ "$OSTYPE" = "msys" ]]
+then
+  JAVA_SE_URL=$JAVA_SE_WINDOWS_URL
+  export JAVA_HOME=$JAVA_PATH_WINDOWS
 else
-  echo "System architecture $(arch) is not supported. Aborting..."
+  echo "System type $OSTYPE is not supported. Aborting..."
   exit
 fi
 
@@ -80,11 +86,20 @@ PATH=$JAVA_HOME/bin:$PATH
 
 if [ ! -d "./java" ]
 then
-  printf "%b Downloading JDK SE...\n" "${COFFEE_EMOJI}"
-  curl --silent --output ./temp/jdk-se.tar.gz $JAVA_SE_URL
+  if [[ "$OSTYPE" = "msys" ]]
+  then
+    printf "%b Downloading JDK SE...\n" "${COFFEE_EMOJI}"
+    curl --silent --output ./temp/jdk-se.zip $JAVA_SE_URL
 
-  printf "%b Unpacking JDK SE...\n" "${ARCHIVE_EMOJI}"
-  tar -xf ./temp/jdk-se.tar.gz
+    printf "%b Unpacking JDK SE...\n" "${ARCHIVE_EMOJI}"
+    unzip -q ./temp/jdk-se.zip
+  else
+    printf "%b Downloading JDK SE...\n" "${COFFEE_EMOJI}"
+    curl --silent --output ./temp/jdk-se.tar.gz $JAVA_SE_URL
+
+    printf "%b Unpacking JDK SE...\n" "${ARCHIVE_EMOJI}"
+    tar -xf ./temp/jdk-se.tar.gz
+  fi
 
   OLD_JAVA_DIR=$(find . -type d -name 'jdk*' -print -quit)
   mv "${OLD_JAVA_DIR[0]}" java
