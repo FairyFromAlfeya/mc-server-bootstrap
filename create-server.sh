@@ -7,6 +7,9 @@ FORGE_INSTALLER_URL="https://maven.minecraftforge.net/net/minecraftforge/forge/1
 JAVA_SE_MAC_OS_URL="https://download.oracle.com/java/17/archive/jdk-17.0.8_macos-aarch64_bin.tar.gz"
 JAVA_SE_LINUX_URL="https://download.oracle.com/java/17/archive/jdk-17.0.8_linux-x64_bin.tar.gz"
 
+JAVA_PATH_MAC_OS=$PWD/java/Contents/Home
+JAVA_PATH_LINUX=$PWD/java
+
 MODS=(
   # Default
   "https://mediafilez.forgecdn.net/files/4442/439/theoneprobe-1.19.4-8.0.0.jar"
@@ -28,9 +31,11 @@ GEAR_EMOJI="\342\232\231"
 if [ "$(arch)" = "arm64" ]
 then
   JAVA_SE_URL=$JAVA_SE_MAC_OS_URL
+  export JAVA_HOME=$JAVA_PATH_MAC_OS
 elif [ "$(arch)" = "x86_64" ]
 then
   JAVA_SE_URL=$JAVA_SE_LINUX_URL
+  export JAVA_HOME=$JAVA_PATH_LINUX
 else
   echo "System architecture $(arch) is not supported. Aborting..."
   exit
@@ -48,7 +53,6 @@ OLD_JAVA_DIR=$(find . -type d -name 'jdk*' -print -quit)
 mv "${OLD_JAVA_DIR[0]}" java
 
 echo
-export JAVA_HOME=$PWD/java/Contents/Home
 java -version
 echo
 
