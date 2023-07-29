@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# M means Megabyte, G means Gigabyte
+MINIMUM_RAM_USAGE="3G"
+MAXIMUM_RAM_USAGE="6G"
+
 JAVA_PATH_MAC_OS=$PWD/java/Contents/Home
 JAVA_PATH_LINUX=$PWD/java
 JAVA_PATH_WINDOWS=$PWD/java
@@ -24,6 +28,6 @@ java -version
 echo
 
 cd ./server || exit
-sh ./run.sh nogui > output.log & echo $! > server.pid
+java -Xms"$MINIMUM_RAM_USAGE" -Xmx"$MAXIMUM_RAM_USAGE" -jar ./start.jar nogui > output.log & echo $! > server.pid
 
 echo "Server is running! Logs will be saved to: server/output.log"
