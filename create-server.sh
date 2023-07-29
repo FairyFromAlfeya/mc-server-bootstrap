@@ -5,8 +5,8 @@
 # Whether or not the user must be logged in to the Mojang account
 ONLINE_MODE=false
 SERVER_DESCRIPTION="Bootstrapped Forge 1.12.2 server"
-RESOURCE_PACK="http://www.f32.me/F32-1.12.2.zip"
-RESOURCE_PACK_CHECKSUM="2a8791ba0c45516240fc67e216f1208f3f61dff2"
+RESOURCE_PACK="https://mediafilez.forgecdn.net/files/2929/732/Faithful32_MC1.12.2_v1.0.6.zip"
+RESOURCE_PACK_CHECKSUM="23fa2caf76aba4e18f60b7096c99d51d59047013"
 
 # -------------- Files download URLs -------------
 
